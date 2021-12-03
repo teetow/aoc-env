@@ -9,7 +9,15 @@ const execRunner = async (runner: Function, data: unknown) => {
   return runner(data);
 };
 
-const TestBox = ({ result, expected }: { result: any; expected: any }) => {
+const TestBox = ({
+  id,
+  result,
+  expected,
+}: {
+  id: string;
+  result: any;
+  expected: any;
+}) => {
   const classes = classnames({
     "ae-runner__box": true,
     "ae-runner__box--is-test": true,
@@ -19,18 +27,27 @@ const TestBox = ({ result, expected }: { result: any; expected: any }) => {
 
   return (
     <div className={classes}>
-      {JSON.stringify(result)} (expected {expected})
+      <span className="ae-runner__testid">{id}</span>{" "}
+      <span className="ae-runner__result">{JSON.stringify(result)}</span>{" "}
+      (expected {expected})
     </div>
   );
 };
 
-const Box = ({ result }: { result: any }) => {
+const Box = ({ id, result }: { id: string; result: any }) => {
   const classes = classnames({
     "ae-runner__box": true,
     "ae-runner__box--is-test": true,
   });
 
-  return <div className={classes}>{JSON.stringify(result)}</div>;
+  return (
+    <div className={classes}>
+      <span className="ae-runner__testid">{id}</span>{" "}
+      <span className="ae-runner__result ae-runner__result--is-solution">
+        {JSON.stringify(result)}
+      </span>
+    </div>
+  );
 };
 
 type RunResult = {
@@ -65,7 +82,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
             ...prev,
             ...{ [`${id}`]: { type, result, expected, state: "complete" } },
           }));
-        }, 1200);
+        }, 10);
       });
     },
     []
@@ -101,6 +118,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                   ) : (
                     <TestBox
                       key={id}
+                      id={id}
                       result={rs.result}
                       expected={rs.expected}
                     />
@@ -113,7 +131,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                   return rs.state === "running" ? (
                     <div>Waiting for solution {i}...</div>
                   ) : (
-                    <Box key={id} result={rs.result} />
+                    <Box key={id} id={id} result={rs.result} />
                   );
                 })}
             </div>
