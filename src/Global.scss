@@ -1,0 +1,48 @@
+@use "style/fonts";
+@use "style/tokens";
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap");
+
+html {
+  background-color: tokens.$color-bg;
+  color: tokens.$color-fg;
+  display: grid;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: Source Sans Pro;
+  display: grid;
+}
+
+#root {
+  display: grid;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7 {
+  margin: 0 0 0.5em;
+}
+
+p {
+  @include fonts.body-md;
+  margin: 0 0 1rem;
+}
+
+a {
+  color: tokens.$color-accent-strong;
+  &:visited {
+    color: tokens.$color-accent-strong;
+  }
+}
+
+ul {
+  padding: 0 0 0 18px;
+  margin: 0;
+}

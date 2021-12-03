@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Blurb from "./ui/Blurb";
 import Picker from "./ui/Picker";
+import Runner from "./ui/Runner";
+
+import "./App.scss";
 
 function App() {
-  const [year, setyear] = useState(2021);
+  const [year, setYear] = useState(2021);
   const [day, setDay] = useState(1);
   return (
     <div className="ae-app">
-      <Picker year={2021} day={day} onSetYear={setDay} onSetDay={setDay} />
-      {/* <DayRunner day={day} /> */}
+      <Picker year={year} day={day} onSetYear={setYear} onSetDay={setDay} />
+      <Runner year={year} day={day} />
       <Blurb />
     </div>
   );

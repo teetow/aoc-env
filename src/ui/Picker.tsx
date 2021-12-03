@@ -17,13 +17,15 @@ const Picker: FunctionComponent<Props> = ({
   return (
     <div className="ae-picker">
       <div className="ae-picker__years">
-        {Object.keys(years).map((y) => (
-          <div className="ae-picker__year">{y}</div>
+        {Object.keys(years).map((y, index) => (
+          <div key={`${index}`} className="ae-picker__year">
+            {y}
+          </div>
         ))}
       </div>
       <div className="ae-picker__days">
-        {Object.keys(years[year]).map((d) => (
-          <div>{d}</div>
+        {Object.keys(years[year]).map((d, index) => (
+          <div key={`${index}`}>{d}</div>
         ))}
       </div>
     </div>

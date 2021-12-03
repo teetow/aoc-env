@@ -1,0 +1,13 @@
+@use "../style/tokens";
+
+$base: ".ae-runner";
+
+#{$base}__box {
+  &--is-success {
+    color: tokens.$color-green;
+  }
+
+  &--is-fail {
+    color: tokens.$color-red;
+  }
+}

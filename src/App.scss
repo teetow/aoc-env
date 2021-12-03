@@ -1,0 +1,22 @@
+.ae-app {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "picker picker picker"
+    "lside body rside"
+    "footer footer footer";
+  justify-items: center;
+}
+
+.ae-picker {
+  grid-area: picker;
+}
+
+.ae-runner {
+  grid-area: body;
+}
+
+.ae-blurb {
+  grid-area: footer;
+}
