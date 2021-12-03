@@ -1,19 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import { HashRouter, Route, Routes, useParams } from "react-router-dom";
+import "./App.scss";
 import Blurb from "./ui/Blurb";
 import Picker from "./ui/Picker";
 import Runner from "./ui/Runner";
 
-import "./App.scss";
+const AppMain = () => {
+  let params = useParams();
+  const year = Number(params.year) || 2021;
+  const day = Number(params.day) || 1;
+
+  return (
+    <>
+      <Picker year={year} day={day} />
+      <Runner year={year} day={day} />
+    </>
+  );
+};
 
 function App() {
-  const [year, setYear] = useState(2021);
-  const [day, setDay] = useState(1);
   return (
-    <div className="ae-app">
-      <Picker year={year} day={day} onSetYear={setYear} onSetDay={setDay} />
-      <Runner year={year} day={day} />
-      <Blurb />
-    </div>
+    <HashRouter>
+      <div className="ae-app">
+        <Routes>
+          <Route path="/" />
+          <Route path=":year" element={<AppMain />}></Route>
+          <Route path=":year/:day" element={<AppMain />}></Route>
+        </Routes>
+        <Blurb />
+      </div>
+    </HashRouter>
   );
 }
 

@@ -107,14 +107,14 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
         {dayData.parts.map((part, i) => {
           const resultSet = Object.entries(results);
           return (
-            <div>
+            <div key={`P${i}`}>
               <h3>part {i}</h3>
               <h4>Tests</h4>
               {resultSet
                 .filter(([id, rs]) => rs.type === "test")
                 .map(([id, rs]) => {
                   return rs.state === "running" ? (
-                    <div>Waiting for test {i}...</div>
+                    <div key={id}>Waiting for test {i}...</div>
                   ) : (
                     <TestBox
                       key={id}
@@ -129,7 +129,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                 .filter(([id, rs]) => rs.type === "solution")
                 .map(([id, rs]) => {
                   return rs.state === "running" ? (
-                    <div>Waiting for solution {i}...</div>
+                    <div key={id}>Waiting for solution {i}...</div>
                   ) : (
                     <Box key={id} id={id} result={rs.result} />
                   );

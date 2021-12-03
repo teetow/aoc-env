@@ -1,33 +1,38 @@
+import classNames from "classnames";
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import years from "../data/index";
 
+import "./Picker.scss";
+
 type Props = {
-  onSetYear: (year: number) => void;
-  onSetDay: (day: number) => void;
   year: number;
   day: number;
 };
 
-const Picker: FunctionComponent<Props> = ({
-  year,
-  day,
-  onSetYear,
-  onSetDay,
-}: Props) => {
+const Picker: FunctionComponent<Props> = ({ year, day }: Props) => {
+  const getClasses = (val: any, refVal: any) => {
+    return classNames({
+      "ae-picker__listitem": true,
+      "ae-picker__listitem--is-active": val === refVal,
+    });
+  };
   return (
     <div className="ae-picker">
-      <div className="ae-picker__years">
+      <ul className="ae-picker__list ae-picker__years">
         {Object.keys(years).map((y, index) => (
-          <div key={`${index}`} className="ae-picker__year">
-            {y}
-          </div>
+          <Link key={`${index}`} to={`/${y}`}>
+            <li className={getClasses(Number(y), year)}>{y}</li>
+          </Link>
         ))}
-      </div>
-      <div className="ae-picker__days">
+      </ul>
+      <ul className="ae-picker__list ae-picker__days">
         {Object.keys(years[year]).map((d, index) => (
-          <div key={`${index}`}>{d}</div>
+          <Link key={`${index}`} to={`/${year}/${d}`}>
+            <li className={getClasses(Number(d), day)}>{d}</li>
+          </Link>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

@@ -1,0 +1,42 @@
+@use "sass:color";
+@use "../style/tokens";
+
+$base: ".ae-picker";
+
+#{$base} {
+}
+
+#{$base}__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 1em;
+  margin: 0.5em;
+  padding: 0;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+#{$base}__listitem {
+  display: grid;
+  list-style: none;
+  padding: 0.5em 1em;
+  border: 0.1em solid tokens.$color-accent-strong;
+  border-radius: 0.5em;
+
+  &--is-active {
+    background-color: #{color.adjust(tokens.$color-accent-strong, $alpha: -0.8)};
+    color: white;
+  }
+}
+
+#{$base}__years {
+}
+
+#{$base}__year {
+}
+
+#{$base}__days {
+}
