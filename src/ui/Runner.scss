@@ -3,13 +3,19 @@
 
 $base: ".ae-runner";
 
+#{$base} {
+  display: grid;
+  gap: 2em;
+  grid-auto-flow: column;
+}
+
 #{$base}__box {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
   grid-template-columns: auto 1fr;
   gap: 1em;
-  padding: 0.25em 0;
+  padding: 0 0 1em;
   &--is-success {
     color: tokens.$color-green;
   }
@@ -21,11 +27,11 @@ $base: ".ae-runner";
 
 #{$base}__testid {
   @include fonts.body-sm;
-
+  line-height: 0.9em;
   background-color: tokens.$color-accent;
   border-radius: 0.2em;
   color: white;
-  padding: 0.1em 0.5em;
+  padding: 0.5em 1em;
 }
 
 #{$base}__result {

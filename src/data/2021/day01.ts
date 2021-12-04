@@ -21,15 +21,23 @@ const part2 = (data: number[]) => {
 };
 
 const day01: Day<number[], number> = {
+  desc: "Submarine goes BRRRRRR",
   parts: [
     {
-      desc: "count the number of times a depth measurement increases from the previous measurement.",
+      desc: "Count the number of times a depth measurement increases from the previous measurement.",
       tests: [
         { data: parse(testData), runner: part1, result: 7 },
-        { data: parse(testData), runner: part2, result: 5 },
       ],
       solutions: [
         { data: parse(data), runner: part1 },
+      ],
+    },
+    {
+      desc: "In running cohorts of 3, count the number of times a depth cohort increases from the previous cohort.",
+      tests: [
+        { data: parse(testData), runner: part2, result: 5 },
+      ],
+      solutions: [
         { data: parse(data), runner: part2 },
       ],
     },

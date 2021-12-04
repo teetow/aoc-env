@@ -7,9 +7,10 @@ type Run<K, T> = {
 export type Part<K, T> = {
   solutions: Run<K, T>[];
   tests: Run<K, T>[];
-  desc: string;
+  desc?: string;
 };
 
 export type Day<K, T> = {
   parts: Part<K, T>[];
+  desc?: string;
 };
