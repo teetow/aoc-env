@@ -23,7 +23,7 @@ function App() {
     <HashRouter>
       <div className="ae-app">
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Picker year={2021} day={4} />} />
           <Route path=":year" element={<AppMain />}></Route>
           <Route path=":year/:day" element={<AppMain />}></Route>
         </Routes>
