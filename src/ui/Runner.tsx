@@ -40,21 +40,28 @@ const Box = ({
   id,
   result,
   runTime,
+  expected,
 }: {
   id: string;
   result: any;
   runTime: number;
+  expected?: any;
 }) => {
   const classes = classnames({
     "ae-runner__box": true,
     "ae-runner__box--is-test": true,
+    "ae-runner__box--is-success": expected !== undefined && result === expected,
+    "ae-runner__box--is-fail": expected !== undefined && result !== expected,
   });
 
   return (
     <div className={classes}>
       <span className="ae-runner__testid">{id}</span>{" "}
       <span className="ae-runner__result ae-runner__result--is-solution">
-        {JSON.stringify(result)}
+        {JSON.stringify(result)}{" "}
+        {expected && expected !== result && (
+          <span className="ae-runner__result">({expected})</span>
+        )}
       </span>
       <span className="ae-runner__result ae-runner__timer">
         {formatTime(runTime)}
@@ -127,7 +134,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
       });
       part.solutions.forEach((solution, solutionIndex) => {
         const key = `Y${year}-D${day}-P${partIndex}-S${solutionIndex}`;
-        run("solution", key, solution.runner, solution.data);
+        run("solution", key, solution.runner, solution.data, solution.result);
       });
     });
   }, [run, year, day]);
@@ -138,7 +145,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
         {years[year][day].parts.map((part, i) => {
           const resultSet = Object.entries(results);
           return (
-            <div key={`P${i}`} className="ae-runner__part">
+            <div key={`Y${year}-D${day}-P${i}`} className="ae-runner__part">
               <h2>Part {i + 1}</h2>
               <p>{part.desc}</p>
               <h4>Tests</h4>
@@ -178,6 +185,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                       key={id}
                       id={id}
                       result={rs.result}
+                      expected={rs.expected}
                       runTime={rs.endTime - rs.startTime}
                     />
                   );

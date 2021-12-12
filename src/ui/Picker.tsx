@@ -7,7 +7,7 @@ import "./Picker.scss";
 
 type Props = {
   year: number;
-  day: number;
+  day?: number;
 };
 
 const Picker: FunctionComponent<Props> = ({ year, day }: Props) => {

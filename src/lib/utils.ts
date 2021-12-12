@@ -2,6 +2,16 @@ export const range = (n: number, start: number = 0) => [
   ...Array.from(Array(n).keys()).map((k) => k + start),
 ];
 
+export const step = (from: number, to: number) => {
+  if (from === to) return [from];
+
+  const arr = Array.from(Array(Math.abs(to - from) + 1).keys()).map(
+    (key) => key + Math.min(from, to)
+  );
+
+  return to > from ? arr : arr.reverse();
+};
+
 export const clamp = (n: number, min = 0, max = 1) =>
   Math.max(Math.min(n, max), min);
 

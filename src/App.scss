@@ -1,15 +1,16 @@
 .ae-app {
   display: grid;
-  gap: 2em;
-  grid-template-columns: 1fr 20fr 1fr;
-  grid-template-rows: auto 1fr auto;
+  gap: 2em 0;
+  grid-template-columns: 1fr 24fr 1fr;
+  grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     "picker picker picker"
     "lside body rside"
+    "lside debugger rside"
     "footer footer footer";
   justify-items: center;
   margin: 0 auto;
-  max-width: min(80%, 60em);
+  max-width: min(99%, 60em);
 }
 
 .ae-picker {
@@ -22,4 +23,14 @@
 
 .ae-blurb {
   grid-area: footer;
+}
+
+.ae-debugger {
+  grid-area: debugger;
+  text-align: left;
+  align-self: stretch;
+  justify-self: stretch;
+  white-space: pre;
+  overflow: auto;
+  max-height: 50vh;
 }
