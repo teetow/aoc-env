@@ -42,3 +42,14 @@ export const formatTime = (time: number) => {
   }
   return `${ts.ms}ms`;
 };
+
+export const median = (nums: number[]) => {
+  return nums.sort((a, b) => a - b)[Math.floor(nums.length / 2)];
+};
+
+export const average = (nums: number[]) => {
+  return nums.reduce((acc, val) => acc + val, 0) / nums.length;
+};
+
+export const factorial = (number: number) =>
+  range(number, 1).reduce((acc, val) => acc + val, 0);

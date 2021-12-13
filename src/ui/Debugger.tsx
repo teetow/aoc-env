@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 let handleLogMsg = (msg: string) => {};
 
@@ -10,11 +10,15 @@ export let logMsg = (msg: string) => {
 const Debugger = () => {
   const [msg, setMsg] = useState("");
 
+  const appendLog = useCallback((line) => {
+    setMsg((prev) => prev + "\n" + line);
+  }, []);
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleLogMsg = setMsg;
+    handleLogMsg = appendLog;
     console.log("registering");
-  }, [setMsg]);
+  }, [appendLog]);
 
   return <code className="ae-debugger">{msg}</code>;
 };
