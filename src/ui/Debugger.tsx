@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 let handleLogMsg = (msg: string) => {};
 
-export let logMsg = (msg: string) => {
+export let logMsg = (msg: any) => {
   console.log(msg);
   handleLogMsg(msg);
 };
@@ -11,7 +11,7 @@ const Debugger = () => {
   const [msg, setMsg] = useState("");
 
   const appendLog = useCallback((line) => {
-    setMsg((prev) => prev + "\n" + line);
+    setMsg((prev) => prev + "\n" + JSON.stringify(line, null, 2));
   }, []);
 
   useEffect(() => {
