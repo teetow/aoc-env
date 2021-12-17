@@ -53,3 +53,22 @@ export const average = (nums: number[]) => {
 
 export const factorial = (number: number) =>
   range(number, 1).reduce((acc, val) => acc + val, 0);
+
+export const sub = (src: number[], ...subtractions: number[][]) =>
+  subtractions.reduce((acc, val) => {
+    return acc.filter((x) => !val.includes(x));
+  }, src);
+
+export const exclude = (...exclusions: number[][]) =>
+  range(exclusions.length).reduceRight((acc, i) => {
+    return exclusions[i].filter((x) => !acc.includes(x));
+  }, [] as number[]);
+
+export const intersect = (...intersections: number[][]) =>
+  range(intersections.length).reduce(
+    (acc, i) => intersections[i].filter((x) => acc.includes(x)),
+    intersections[0]
+  );
+
+export const merge = (...arrays: number[][]) =>
+  arrays.reduce((acc, arr) => [...acc, ...sub(arr, acc)], [] as number[]);

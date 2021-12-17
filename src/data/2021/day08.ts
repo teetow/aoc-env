@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Day } from "../../lib/Day";
-import { range } from "../../lib/utils";
-import { logMsg } from "../../ui/Debugger";
+import { intersect, merge, range, sub } from "../../lib/utils";
 import data from "./input/day08";
 import testData from "./input/day08test";
-
-console.clear();
 
 type Batch = {
   input: number[][];
@@ -96,40 +93,35 @@ e    f   .    f   e    .   .    f   .    f   .    f   e    f   .    f   e    f  
   6        2        5        5        4        5         6       3        7         6
 */
 
-const sub = (src: number[], sub: number[]) =>
-  src.filter((x) => !sub.includes(x));
-
-const intersect = (one: number[], other: number[]) =>
-  one.filter((x) => other.includes(x));
-
-const merge = (one: number[], other: number[]) => [...one, ...sub(other, one)];
-
 const decipher = (pattern: Batch) => {
-  const src = [...pattern.input, ...pattern.output];
+  const src = [
+    ...pattern.input,
+    ...pattern.output.filter((x) => pattern.input.indexOf(x) > -1),
+  ];
+
   const d = Array(10);
+
   d[1] = src.find((x) => x.length === 2);
   d[4] = src.find((x) => x.length === 4);
   d[7] = src.find((x) => x.length === 3);
   d[8] = src.find((x) => x.length === 7);
 
-  const _a = sub(d[7], d[1]);
-
   const len6 = src.filter((x) => x.length === 6); // digits 0, 6, 9
-  const _abfg = intersect(len6[0], intersect(len6[1], len6[2]));
+  const _abfg = intersect(len6[0], len6[1], len6[2]);
   const _bg = sub(_abfg, d[7]);
 
-  const len5 = src.filter((x) => x.length === 5); // digits 2, 3
-  const _adg = intersect(len5[0], len5[1]);
+  const len5 = src.filter((x) => x.length === 5); // digits 2, 3, 5
+  const _adg = intersect(len5[0], len5[1], len5[2]);
 
   const _g = intersect(_adg, _bg);
   const _b = sub(_bg, _g);
 
-  const _d = sub(sub(d[4], d[1]), _b);
-  const _f = sub(_abfg, merge(_a, _bg));
-  const _c = sub(d[7], merge(_a, _f));
+  const _d = sub(d[4], d[1], _b);
 
-  const _abdfg = merge(_abfg, _adg);
-  const _e = sub(sub(d[8], _abdfg), _c);
+  const _a = sub(d[7], d[1]);
+  const _f = sub(_abfg, _a, _bg);
+  const _c = sub(d[7], _a, _f);
+  const _e = sub(d[8], _abfg, _adg, _c);
 
   return [_a, _b, _c, _d, _e, _f, _g].flat();
 };
@@ -137,7 +129,7 @@ const decipher = (pattern: Batch) => {
 const applyCipher = (sequence: number[][], cipher: number[]) => {
   return sequence.map((segments) => {
     const segs = segments.map((seg) => cipher.indexOf(seg));
-    const mask = segs.reduce((acc, val, i) => acc | (1 << val), 0);
+    const mask = segs.reduce((acc, val) => acc | (1 << val), 0);
     const digit = Object.values(SegMasks).indexOf(mask);
     return digit;
   });
@@ -154,8 +146,6 @@ const part2 = (data: Batch[]) => {
     return acc + decoded;
   }, 0);
 };
-
-const customTestData = `abcefg cf acdeg acdfg bcdf abdfg abdefg acf abcdefg abcdfg | cf bcdf acf abcdefg`;
 
 const day: Day<Batch[], number> = {
   parts: [
