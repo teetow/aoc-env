@@ -7,6 +7,7 @@ import day05 from "./day05";
 import day06 from "./day06";
 import day07 from "./day07";
 import day08 from "./day08";
+import day09 from "./day09";
 
 const days: Record<number, Day<any, any>> = {
   1: day01,
@@ -17,5 +18,6 @@ const days: Record<number, Day<any, any>> = {
   6: day06,
   7: day07,
   8: day08,
+  9: day09,
 };
 export default days;
