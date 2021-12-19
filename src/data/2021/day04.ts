@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Day } from "../../lib/Day";
-import { range } from "../../lib/utils";
+import { deepCopy, range } from "../../lib/utils";
 import data from "./input/day04";
 import testData from "./input/day04test";
 
@@ -70,11 +70,12 @@ const updateBoard = (board: Board, num: number) => {
 };
 
 const part1 = (data: Game) => {
+  const { numbers, boards } = deepCopy(data) as Game;
   let score = 0;
-  data.numbers.some((num) => {
-    data.boards.forEach((board) => updateBoard(board, num));
+  numbers.some((num) => {
+    boards.forEach((board) => updateBoard(board, num));
 
-    return data.boards.some((board) => {
+    return boards.some((board) => {
       if (hasBingo(board)) {
         score = calcScore(board) * num;
         return true;
@@ -91,9 +92,9 @@ type WinRecord = {
 };
 
 const part2 = (data: Game) => {
-  let boards = data.boards;
+  let boards = deepCopy(data.boards) as Board[];
   const numBoards = boards.length;
-  const nums = data.numbers;
+  const nums = deepCopy(data.numbers);
   const winners: WinRecord[] = [];
 
   while (winners.length < numBoards) {

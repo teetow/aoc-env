@@ -72,3 +72,5 @@ export const intersect = (...intersections: number[][]) =>
 
 export const merge = (...arrays: number[][]) =>
   arrays.reduce((acc, arr) => [...acc, ...sub(arr, acc)], [] as number[]);
+
+export const deepCopy = (obj: any) => JSON.parse(JSON.stringify(obj));
