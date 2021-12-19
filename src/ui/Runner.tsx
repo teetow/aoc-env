@@ -104,20 +104,18 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
       }));
 
       execRunner(runner, data).then((result) => {
-        window.setTimeout(() => {
-          setResults((prev) => ({
-            ...prev,
-            ...{
-              [`${id}`]: {
-                ...prev[`${id}`],
-                endTime: Date.now(),
-                result,
-                expected,
-                state: "complete",
-              },
+        setResults((prev) => ({
+          ...prev,
+          ...{
+            [`${id}`]: {
+              ...prev[`${id}`],
+              endTime: Date.now(),
+              result,
+              expected,
+              state: "complete",
             },
-          }));
-        }, 10);
+          },
+        }));
       });
     },
     []
@@ -142,6 +140,18 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
   return (
     <>
       <div className="ae-runner">
+        {years[year][day].desc && (
+          <div className="ae-runner__desc">
+            <h4>Description</h4>
+            <p>{years[year][day].desc}</p>
+          </div>
+        )}
+        {years[year][day].comment && (
+          <div className="ae-runner__comment">
+            <h4>Comment</h4>
+            <p>{years[year][day].comment}</p>
+          </div>
+        )}
         {years[year][day].parts.map((part, i) => {
           const resultSet = Object.entries(results);
           return (
@@ -152,7 +162,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
               {resultSet
                 .filter(
                   ([id, rs]) =>
-                    id.startsWith(`Y${year}-D${day}-P${i}`) &&
+                    id.startsWith(`Y${year}-D${day}-P${i}-T`) &&
                     rs.type === "test"
                 )
                 .map(([id, rs]) => {
@@ -181,13 +191,19 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                       {Date.now() - (rs.startTime || 0)}
                     </div>
                   ) : (
-                    <Box
-                      key={id}
-                      id={id}
-                      result={rs.result}
-                      expected={rs.expected}
-                      runTime={rs.endTime - rs.startTime}
-                    />
+                    <>
+                      <Box
+                        key={id}
+                        id={id}
+                        result={rs.result}
+                        expected={rs.expected}
+                        runTime={rs.endTime - rs.startTime}
+                      />
+                      <div className="ae-runner__partcomment">
+                        <h4>Comment</h4>
+                        <p>{part.comment}</p>
+                      </div>
+                    </>
                   );
                 })}
             </div>

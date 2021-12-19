@@ -9,6 +9,14 @@ $base: ".ae-runner";
   grid-template-columns: 1fr 1fr;
 }
 
+#{$base}__desc {
+  grid-column: span 2;
+}
+
+#{$base}__comment {
+  grid-column: span 2;
+}
+
 #{$base}__box {
   display: grid;
   grid-auto-flow: column;

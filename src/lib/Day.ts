@@ -8,9 +8,11 @@ export type Part<K, T> = {
   solutions: Run<K, T>[];
   tests: Run<K, T>[];
   desc?: string;
+  comment?: string;
 };
 
 export type Day<K, T> = {
   parts: Part<K, T>[];
   desc?: string;
+  comment?: string;
 };
