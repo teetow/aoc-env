@@ -1,6 +1,5 @@
 import { Day } from "../../lib/Day";
-import { range } from "../../lib/utils";
-
+import { colorString, range } from "../../lib/utils";
 import data from "./input/day09";
 import testData from "./input/day09test";
 
@@ -47,18 +46,14 @@ const isLowPoint = (data: Data, pos: Pt) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const visualize = (data: Data, lowpoints: Pt[]) => {
-  const defaultColor = 34;
-  const format = (s: string | number, c = 33) =>
-    `\u001b[${c}m${s}\u001b[${defaultColor}m`;
-
   data.forEach((row, y) => {
     console.log(
       row
         .map((char, x) =>
           lowpoints.find((cell) => cell.isSamePos(new Pt(x, y, -1))) !==
           undefined
-            ? format(char, 33)
-            : format(char, defaultColor)
+            ? colorString(char, 33)
+            : colorString(char, 34)
         )
         .join("")
     );

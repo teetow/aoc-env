@@ -74,3 +74,15 @@ export const merge = (...arrays: number[][]) =>
   arrays.reduce((acc, arr) => [...acc, ...sub(arr, acc)], [] as number[]);
 
 export const deepCopy = (obj: any) => JSON.parse(JSON.stringify(obj));
+
+export const initArray: any = (...dimensions: number[]) => {
+  const dim = dimensions.splice(0, 1)[0];
+  if (dimensions.length > 0) {
+    return Array(dim).fill(initArray(...dimensions));
+  }
+  return Array(dim).fill(0);
+};
+
+export const colorString = (s: string | number, c = 33) => {
+  return `\u001b[${c}m${s}\u001b[${34}m`;
+};
