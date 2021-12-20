@@ -1,6 +1,12 @@
 import classnames from "classnames";
 
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import years from "../data/index";
 import { formatTime } from "../lib/utils";
 
@@ -36,17 +42,20 @@ const TestBox = ({
   );
 };
 
-const Box = ({
-  id,
-  result,
-  runTime,
-  expected,
-}: {
+type BoxProps = {
   id: string;
   result: any;
   runTime: number;
   expected?: any;
-}) => {
+};
+
+const Box: FunctionComponent<BoxProps> = ({
+  id,
+  result,
+  runTime,
+  expected,
+  children,
+}: PropsWithChildren<BoxProps>) => {
   const classes = classnames({
     "ae-runner__box": true,
     "ae-runner__box--is-test": true,
@@ -66,6 +75,7 @@ const Box = ({
       <span className="ae-runner__result ae-runner__timer">
         {formatTime(runTime)}
       </span>
+      {children}
     </div>
   );
 };
@@ -191,19 +201,18 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                       {Date.now() - (rs.startTime || 0)}
                     </div>
                   ) : (
-                    <>
-                      <Box
-                        key={id}
-                        id={id}
-                        result={rs.result}
-                        expected={rs.expected}
-                        runTime={rs.endTime - rs.startTime}
-                      />
+                    <Box
+                      key={id}
+                      id={id}
+                      result={rs.result}
+                      expected={rs.expected}
+                      runTime={rs.endTime - rs.startTime}
+                    >
                       <div className="ae-runner__partcomment">
                         <h4>Comment</h4>
                         <p>{part.comment}</p>
                       </div>
-                    </>
+                    </Box>
                   );
                 })}
             </div>
