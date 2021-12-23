@@ -9,26 +9,24 @@ type Batch = {
   output: number[][];
 };
 
-const rePattern = RegExp(/(?<input>.+) \| (?<output>.+)\n?/, "g");
-
 const chars2nums = (pattern: string) => {
   return pattern.split("").map((char) => char.toUpperCase().charCodeAt(0) - 65);
 };
+
 const parse = (data: string) => {
-  let match;
-  const patterns = [];
-  while ((match = rePattern.exec(data)) && match !== null) {
-    const { input, output } = match?.groups as {
-      input: string;
-      output: string;
-    };
-    if (input && output) {
-      patterns.push({
+  const rows = data.split("\n");
+  const patterns = rows
+    .map((row) => {
+      const [input, output] = row.split(/ \| /);
+      return {
         input: input.split(" ").map(chars2nums),
         output: output.split(" ").map(chars2nums),
-      });
-    }
-  }
+      };
+    })
+    .filter((pair) => {
+      return pair.input[0].length > 0 && pair.output[0].length > 0;
+    });
+
   return patterns;
 };
 
