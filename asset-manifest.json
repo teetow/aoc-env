@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/aoc-env/static/css/main.91bc25f0.chunk.css",
+    "main.js": "/aoc-env/static/js/main.372419b2.chunk.js",
+    "main.js.map": "/aoc-env/static/js/main.372419b2.chunk.js.map",
+    "runtime-main.js": "/aoc-env/static/js/runtime-main.5b065507.js",
+    "runtime-main.js.map": "/aoc-env/static/js/runtime-main.5b065507.js.map",
+    "static/js/2.eda234fd.chunk.js": "/aoc-env/static/js/2.eda234fd.chunk.js",
+    "static/js/2.eda234fd.chunk.js.map": "/aoc-env/static/js/2.eda234fd.chunk.js.map",
+    "index.html": "/aoc-env/index.html",
+    "static/css/main.91bc25f0.chunk.css.map": "/aoc-env/static/css/main.91bc25f0.chunk.css.map",
+    "static/js/2.eda234fd.chunk.js.LICENSE.txt": "/aoc-env/static/js/2.eda234fd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5b065507.js",
+    "static/js/2.eda234fd.chunk.js",
+    "static/css/main.91bc25f0.chunk.css",
+    "static/js/main.372419b2.chunk.js"
+  ]
+}
