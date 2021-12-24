@@ -25,18 +25,26 @@ const TestBox = ({
   result: any;
   expected: any;
 }) => {
+  const isCorrect = result === expected;
+
   const classes = classnames({
     "ae-runner__box": true,
-    "ae-runner__box--is-test": true,
-    "ae-runner__box--is-success": result === expected,
-    "ae-runner__box--is-fail": result !== expected,
+    "ae-runner__box--is-test": result !== undefined,
+    "ae-runner__box--is-success": isCorrect,
+    "ae-runner__box--is-fail": !isCorrect,
   });
 
   return (
     <div className={classes}>
       <span className="ae-runner__testid">{id}</span>{" "}
       <span className="ae-runner__result">
-        {JSON.stringify(result)} (expected {expected})
+        {isCorrect ? (
+          <>✔ ({JSON.stringify(result)})</>
+        ) : (
+          <>
+            ❌{JSON.stringify(result)} (expected {expected})
+          </>
+        )}
       </span>
     </div>
   );
@@ -65,16 +73,18 @@ const Box: FunctionComponent<BoxProps> = ({
 
   return (
     <div className={classes}>
-      <span className="ae-runner__testid">{id}</span>{" "}
-      <span className="ae-runner__result ae-runner__result--is-solution">
-        {JSON.stringify(result)}{" "}
-        {expected && expected !== result && (
-          <span className="ae-runner__result">({expected})</span>
-        )}
-      </span>
-      <span className="ae-runner__result ae-runner__timer">
-        {formatTime(runTime)}
-      </span>
+      <div className="ae-runner__boxresult">
+        <span className="ae-runner__testid">{id}</span>{" "}
+        <span className="ae-runner__result ae-runner__result--is-solution">
+          {JSON.stringify(result)}{" "}
+          {expected && expected !== result && (
+            <span className="ae-runner__result">({expected})</span>
+          )}
+        </span>
+        <span className="ae-runner__result ae-runner__timer">
+          {formatTime(runTime)}
+        </span>
+      </div>
       {children}
     </div>
   );
@@ -208,10 +218,12 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
                       expected={rs.expected}
                       runTime={rs.endTime - rs.startTime}
                     >
-                      <div className="ae-runner__partcomment">
-                        <h4>Comment</h4>
-                        <p>{part.comment}</p>
-                      </div>
+                      {part.comment && (
+                        <div className="ae-runner__partcomment">
+                          <h4>Comment</h4>
+                          <p>{part.comment}</p>
+                        </div>
+                      )}
                     </Box>
                   );
                 })}

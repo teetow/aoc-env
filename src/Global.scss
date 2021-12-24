@@ -15,11 +15,7 @@ body {
   font-family: Source Sans Pro;
   display: grid;
   line-height: 1.33333em;
-  padding: 2em;
-}
-
-#root {
-  display: grid;
+  padding: min(2em, 2%);
 }
 
 h1,

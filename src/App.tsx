@@ -23,14 +23,14 @@ const AppMain = () => {
 function App() {
   return (
     <HashRouter>
-      <div className="ae-app">
+      <>
         <Routes>
           <Route path="/" element={<AppMain />} />
           <Route path=":year" element={<AppMain />}></Route>
           <Route path=":year/:day" element={<AppMain />}></Route>
         </Routes>
         <Blurb />
-      </div>
+      </>
     </HashRouter>
   );
 }

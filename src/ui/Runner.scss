@@ -6,7 +6,7 @@ $base: ".ae-runner";
 #{$base} {
   display: grid;
   gap: 2em;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
 }
 
 #{$base}__desc {
@@ -19,9 +19,12 @@ $base: ".ae-runner";
 
 #{$base}__box {
   display: grid;
-  grid-auto-flow: column;
   align-items: center;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "tag answer time"
+    "comment comment comment";
   gap: 1em;
   padding: 0 0 1em;
   &--is-success {
@@ -31,6 +34,14 @@ $base: ".ae-runner";
   &--is-fail {
     color: tokens.$color-red;
   }
+}
+
+#{$base}__boxresult {
+  display: contents;
+}
+
+#{$base}__partcomment {
+  grid-area: comment;
 }
 
 #{$base}__testid {

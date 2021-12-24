@@ -4,12 +4,12 @@
 $base: ".ae-picker";
 
 #{$base} {
-  font-size: 1.5em;
+  font-size: 1.333em;
 }
 
 #{$base}__list {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: center;
   gap: 0.5em;
   margin: 0.5em;
@@ -21,14 +21,24 @@ $base: ".ae-picker";
 }
 
 #{$base}__listitem {
+  // border: 0.1px solid tokens.$color-accent-strong;
+  border-radius: 0.25em;
   display: grid;
   list-style: none;
+  min-width: 1em;
   padding: 0.25em 0.5em;
-  border: 0.1em solid tokens.$color-accent-strong;
-  border-radius: 0.25em;
+  text-align: center;
 
   &--is-active {
     background-color: #{color.adjust(tokens.$color-accent-strong, $alpha: -0.8)};
     color: white;
+  }
+
+  &:not(#{&}--is-active):hover {
+    background-color: color.adjust(tokens.$color-accent, $alpha: -0.8);
+    color: white;
+  }
+
+  &:hover {
   }
 }
