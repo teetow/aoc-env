@@ -6,7 +6,16 @@ $base: ".ae-runner";
 #{$base} {
   display: grid;
   gap: 2em;
+}
+
+#{$base}__parts {
+  display: grid;
+  gap: 2em;
   grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+}
+
+#{$base}__part {
+  min-width: 0;
 }
 
 #{$base}__desc {
@@ -27,6 +36,7 @@ $base: ".ae-runner";
     "comment comment comment";
   gap: 1em;
   padding: 0 0 1em;
+
   &--is-success {
     color: tokens.$color-green;
   }
@@ -34,10 +44,6 @@ $base: ".ae-runner";
   &--is-fail {
     color: tokens.$color-red;
   }
-}
-
-#{$base}__boxresult {
-  display: contents;
 }
 
 #{$base}__partcomment {

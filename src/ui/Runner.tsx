@@ -1,6 +1,7 @@
 import classnames from "classnames";
 
 import {
+  Fragment,
   FunctionComponent,
   PropsWithChildren,
   useCallback,
@@ -25,67 +26,52 @@ const TestBox = ({
   result: any;
   expected: any;
 }) => {
-  const isCorrect = result === expected;
-
-  const classes = classnames({
-    "ae-runner__box": true,
-    "ae-runner__box--is-test": result !== undefined,
-    "ae-runner__box--is-success": isCorrect,
-    "ae-runner__box--is-fail": !isCorrect,
-  });
+  const isSuccess = result === expected;
 
   return (
-    <div className={classes}>
-      <span className="ae-runner__testid">{id}</span>{" "}
-      <span className="ae-runner__result">
-        {isCorrect ? (
-          <>✔ ({JSON.stringify(result)})</>
-        ) : (
-          <>
-            ❌{JSON.stringify(result)} (expected {expected})
-          </>
-        )}
-      </span>
-    </div>
+    <Box
+      id={id}
+      expected={expected}
+      isSuccess={isSuccess}
+      isFail={result !== expected}
+    >
+      {isSuccess ? (
+        <>✔ ({JSON.stringify(result)})</>
+      ) : (
+        <>
+          ❌{JSON.stringify(result)} (expected {expected})
+        </>
+      )}
+    </Box>
   );
 };
 
 type BoxProps = {
   id: string;
-  result: any;
-  runTime: number;
+  runTime?: number;
   expected?: any;
+  isSuccess?: boolean;
+  isFail?: boolean;
 };
 
 const Box: FunctionComponent<BoxProps> = ({
   id,
-  result,
   runTime,
-  expected,
   children,
+  isSuccess,
+  isFail,
 }: PropsWithChildren<BoxProps>) => {
   const classes = classnames({
     "ae-runner__box": true,
-    "ae-runner__box--is-test": true,
-    "ae-runner__box--is-success": expected !== undefined && result === expected,
-    "ae-runner__box--is-fail": expected !== undefined && result !== expected,
+    "ae-runner__box--is-success": isSuccess,
+    "ae-runner__box--is-fail": isFail,
   });
 
   return (
     <div className={classes}>
-      <div className="ae-runner__boxresult">
-        <span className="ae-runner__testid">{id}</span>{" "}
-        <span className="ae-runner__result ae-runner__result--is-solution">
-          {JSON.stringify(result)}{" "}
-          {expected && expected !== result && (
-            <span className="ae-runner__result">({expected})</span>
-          )}
-        </span>
-        <span className="ae-runner__result ae-runner__timer">
-          {formatTime(runTime)}
-        </span>
-      </div>
-      {children}
+      <span className="ae-runner__testid">{id}</span>{" "}
+      <span className="ae-runner__result">{children}</span>
+      <span className="ae-runner__timer">{runTime && formatTime(runTime)}</span>
     </div>
   );
 };
@@ -160,76 +146,84 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
   return (
     <>
       <div className="ae-runner">
-        {years[year][day].desc && (
-          <div className="ae-runner__desc">
-            <h4>Description</h4>
-            <p>{years[year][day].desc}</p>
-          </div>
-        )}
-        {years[year][day].comment && (
-          <div className="ae-runner__comment">
-            <h4>Comment</h4>
-            <p>{years[year][day].comment}</p>
-          </div>
-        )}
-        {years[year][day].parts.map((part, i) => {
-          const resultSet = Object.entries(results);
-          return (
-            <div key={`Y${year}-D${day}-P${i}`} className="ae-runner__part">
-              <h2>Part {i + 1}</h2>
-              <p>{part.desc}</p>
-              <h4>Tests</h4>
-              {resultSet
-                .filter(
-                  ([id, rs]) =>
-                    id.startsWith(`Y${year}-D${day}-P${i}-T`) &&
-                    rs.type === "test"
-                )
-                .map(([id, rs]) => {
-                  return rs.state === "running" ? (
-                    <div key={id}>Waiting for test {i}...</div>
-                  ) : (
-                    <TestBox
-                      key={id}
-                      id={id}
-                      result={rs.result}
-                      expected={rs.expected}
-                    />
-                  );
-                })}
-              <h4>Results</h4>
-              {resultSet
-                .filter(
-                  ([id, rs]) =>
-                    id.startsWith(`Y${year}-D${day}-P${i}`) &&
-                    rs.type === "solution"
-                )
-                .map(([id, rs]) => {
-                  return rs.state === "running" ? (
-                    <div key={id}>
-                      Waiting for solution {i}...{" "}
-                      {Date.now() - (rs.startTime || 0)}
-                    </div>
-                  ) : (
-                    <Box
-                      key={id}
-                      id={id}
-                      result={rs.result}
-                      expected={rs.expected}
-                      runTime={rs.endTime - rs.startTime}
-                    >
-                      {part.comment && (
-                        <div className="ae-runner__partcomment">
-                          <h4>Comment</h4>
-                          <p>{part.comment}</p>
-                        </div>
-                      )}
-                    </Box>
-                  );
-                })}
+        <div className="ae-runner__header">
+          {years[year][day].desc && (
+            <div className="ae-runner__desc">
+              <h4>Description</h4>
+              <p>{years[year][day].desc}</p>
             </div>
-          );
-        })}
+          )}
+          {years[year][day].comment && (
+            <div className="ae-runner__comment">
+              <h4>Comment</h4>
+              <p>{years[year][day].comment}</p>
+            </div>
+          )}
+        </div>
+        <div className="ae-runner__parts">
+          {years[year][day].parts.map((part, i) => {
+            const resultSet = Object.entries(results);
+            return (
+              <div key={`Y${year}-D${day}-P${i}`} className="ae-runner__part">
+                <h2>Part {i + 1}</h2>
+                <p>{part.desc}</p>
+                <h4>Tests</h4>
+                {resultSet
+                  .filter(
+                    ([id, rs]) =>
+                      id.startsWith(`Y${year}-D${day}-P${i}-T`) &&
+                      rs.type === "test"
+                  )
+                  .map(([id, rs]) => {
+                    return rs.state === "running" ? (
+                      <div key={id}>Waiting for test {i}...</div>
+                    ) : (
+                      <TestBox
+                        key={id}
+                        id={id}
+                        result={rs.result}
+                        expected={rs.expected}
+                      />
+                    );
+                  })}
+                <h4>Results</h4>
+                {resultSet
+                  .filter(
+                    ([id, rs]) =>
+                      id.startsWith(`Y${year}-D${day}-P${i}`) &&
+                      rs.type === "solution"
+                  )
+                  .map(([id, rs]) => {
+                    return rs.state === "running" ? (
+                      <div key={id}>
+                        Waiting for solution {i}...{" "}
+                        {Date.now() - (rs.startTime || 0)}
+                      </div>
+                    ) : (
+                      <Fragment key={id}>
+                        <Box
+                          key={id}
+                          id={id}
+                          expected={rs.expected}
+                          runTime={rs.endTime - rs.startTime}
+                        >
+                          <div className="ae-runner__result--is-solution">
+                            {rs.result}
+                          </div>
+                        </Box>
+                        {part.comment && (
+                          <div className="ae-runner__partcomment">
+                            <h4>Comment</h4>
+                            <p>{part.comment}</p>
+                          </div>
+                        )}
+                      </Fragment>
+                    );
+                  })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
