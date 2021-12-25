@@ -8,6 +8,22 @@ $base: ".ae-runner";
   gap: 2em;
 }
 
+#{$base}__links {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
+}
+
+#{$base}__instr {
+  border: 0;
+  display: block;
+  height: 24em;
+  margin: 0 0 -5em;
+  transform-origin: top left;
+  transform: scale(0.75);
+  width: 133%;
+}
+
 #{$base}__parts {
   display: grid;
   gap: 2em;

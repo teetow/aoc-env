@@ -1,5 +1,4 @@
 import classnames from "classnames";
-
 import {
   Fragment,
   FunctionComponent,
@@ -147,9 +146,14 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
     <>
       <div className="ae-runner">
         <div className="ae-runner__header">
+          <h1>Day {day}, {year}</h1>
+          <iframe
+            className="ae-runner__instr"
+            title="Instructions"
+            src={`https://adventofcode.com/${year}/day/${day}`}
+          />
           {years[year][day].desc && (
             <div className="ae-runner__desc">
-              <h4>Description</h4>
               <p>{years[year][day].desc}</p>
             </div>
           )}
@@ -159,6 +163,22 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
               <p>{years[year][day].comment}</p>
             </div>
           )}
+          <div className="ae-runner__links">
+            <a
+              className="ae-runner__link"
+              href={`https://adventofcode.com/${year}/day/${day}`}
+            >
+              Read instructions
+            </a>
+            <a
+              className="ae-runner__link"
+              href={`https://github.com/teetow/aoc-env/blob/master/src/data/${year}/day${day
+                .toString()
+                .padStart(2, "0")}.ts`}
+            >
+              View solution
+            </a>
+          </div>
         </div>
         <div className="ae-runner__parts">
           {years[year][day].parts.map((part, i) => {

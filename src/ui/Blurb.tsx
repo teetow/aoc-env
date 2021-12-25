@@ -4,7 +4,7 @@ const Blurb = () => {
   return (
     <div className="ae-blurb">
       <div className="ae-blurb__box">
-        Made by <a href="https://github.com/teetow">Teetow</a> <br />
+        Made by <a href="https://github.com/teetow">Teetow</a>{" "}
         for <a href="https://adventofcode.com/">Advent of Code 2021</a>
       </div>
       <div className="ae-blurb__box">
