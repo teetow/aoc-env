@@ -8,4 +8,5 @@ const data = `5483143223
 6882881134
 4846848554
 5283751526`;
+
 export default data;

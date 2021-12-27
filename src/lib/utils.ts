@@ -78,7 +78,9 @@ export const deepCopy = (obj: any) => JSON.parse(JSON.stringify(obj));
 export const initArray: any = (...dimensions: number[]) => {
   const dim = dimensions.splice(0, 1)[0];
   if (dimensions.length > 0) {
-    return Array(dim).fill(initArray(...dimensions));
+    return Array(dim)
+      .fill(0)
+      .map((row) => initArray(...dimensions));
   }
   return Array(dim).fill(0);
 };
