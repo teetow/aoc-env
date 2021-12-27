@@ -58,8 +58,8 @@ const getNeighbors = (
 
 const increment = (map: Map) => map.map((row) => row.map((cell) => cell + 1));
 
-const countFlashes = (boom: Map) =>
-  boom.reduce(
+const countFlashes = (flashes: Map) =>
+  flashes.reduce(
     (rowAcc, row) => rowAcc + row.reduce((acc, cell) => acc + cell, 0),
     0
   );
@@ -84,20 +84,23 @@ const makeFlashes = (data: Data) => {
   let prevFlashes = -1;
   let totalFlashes = 0;
 
+  const flashCell = (x: number, y: number) => {
+    data.flashes[y][x] = 1;
+    data.map[y][x] = 0;
+    ({ map: data.map, flashes: data.flashes } = makeFlash(x, y, data));
+    totalFlashes++;
+  };
+
   while (totalFlashes > prevFlashes) {
     prevFlashes = totalFlashes;
 
     data.map.forEach((row, y) =>
       row.forEach((cell, x) => {
         if (cell > 9) {
-          data.flashes[y][x] = 1;
-          data.map[y][x] = 0;
-          ({ map: data.map, flashes: data.flashes } = makeFlash(x, y, data));
+          flashCell(x, y);
         }
       })
     );
-
-    totalFlashes = countFlashes(data.flashes);
   }
 
   return totalFlashes;
@@ -111,13 +114,19 @@ const doStep = (data: Data) => {
 
 const part1 = (data: Data) => {
   data = deepCopy(data) as Data;
-  const totalFlashes = range(100).reduce((acc) => acc + doStep(data), 0);
-  console.log(totalFlashes);
-  return totalFlashes;
+  return range(100).reduce((acc) => acc + doStep(data), 0);
 };
 
 const part2 = (data: Data) => {
-  return 0;
+  data = deepCopy(data) as Data;
+
+  let iter = 0;
+  while (countFlashes(data.flashes) < 100) {
+    iter++;
+    doStep(data);
+  }
+
+  return iter;
 };
 
 const day: Day<Data, number> = {
@@ -129,10 +138,10 @@ const day: Day<Data, number> = {
       solutions: [{ data: parse(data), runner: part1 }],
     },
     {
-      tests: [],
-      solutions: [],
-      // tests: [{ data: parse(testData), runner: part2, result: 288957 }],
-      // solutions: [{ data: parse(data), runner: part2 }],
+      // tests: [],
+      tests: [{ data: parse(testData), runner: part2, result: 195 }],
+      // solutions: [],
+      solutions: [{ data: parse(data), runner: part2 }],
     },
   ],
 };
