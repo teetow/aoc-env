@@ -21,6 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "apps/aoc-env/src"
+    "src"
   ]
 }

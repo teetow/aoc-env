@@ -7,6 +7,9 @@ config();
 
 export const fetchData = async (year: number, day: number) => {
   const url = `https://adventofcode.com/${year}/day/${day}/input`;
+  if (!process.env["aoc_session"]) {
+    throw "can't login to Advent of Code. missing aoc_session in environment variables.";
+  }
 
   return await axios
     .get(url, {
@@ -21,19 +24,23 @@ export const fetchData = async (year: number, day: number) => {
 export const createDataFile = (year: number, day: number) => {
   const pad = (n: number | string) => n.toString().padStart(2, "0");
 
-  const path = resolve(`src/data/${year}/${pad(day)}`);
+  const path = resolve(`data/${year}/${pad(day)}`);
+  const fname = `${path}/day${pad(day)}.txt`;
 
-  fs.mkdirSync(path, { recursive: true });
-
-  fetchData(year, day).then((data) => {
-    fs.writeFileSync(`${path}/day${pad(day)}.txt`, data, { flag: "wx" });
-  });
+  if (!fs.existsSync(fname)) {
+    fs.mkdirSync(path, { recursive: true });
+    fetchData(year, day).then((data) => {
+      fs.writeFileSync(fname, data, { flag: "wx" });
+    });
+  } else {
+    console.log(`${fname} exists. skipping fetch...`);
+  }
 };
 
 const refreshDataFiles = (year = new Date().getFullYear()) => {
   const today = new Date().getDate();
 
-  for (let day = 1; day < today; day++) {
+  for (let day = 1; day <= today; day++) {
     createDataFile(year, day);
   }
 };

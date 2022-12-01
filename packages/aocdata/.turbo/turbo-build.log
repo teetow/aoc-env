@@ -1,0 +1,6 @@
+
+> aocdata@1.0.0 build /home/teetow/apps/aoc-env/packages/aocdata
+> ts-node-esm ./fetchdata.ts
+
+/home/teetow/apps/aoc-env/packages/aocdata/data/2022/01
+/home/teetow/apps/aoc-env/packages/aocdata/data/2022/01/day01.txt exists. skipping fetch...

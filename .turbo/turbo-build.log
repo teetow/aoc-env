@@ -1,0 +1,6 @@
+$ react-scripts build
+Could not find a required file.
+  Name: index.js
+  Searched in: /home/teetow/apps/aoc-env/src
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
