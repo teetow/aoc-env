@@ -10,6 +10,8 @@ type Props = {
   day?: number;
 };
 
+const idToIndex = (id: string) => Number(id.split("day")[1]);
+
 const Picker: FunctionComponent<Props> = ({ year, day }: Props) => {
   const getClasses = (val: any, refVal: any) => {
     return classNames({
@@ -28,8 +30,8 @@ const Picker: FunctionComponent<Props> = ({ year, day }: Props) => {
       </ul>
       <ul className="ae-picker__list ae-picker__days">
         {Object.keys(years[year]).map((d, index) => (
-          <Link key={`${index}`} to={`/${year}/${d}`}>
-            <li className={getClasses(Number(d), day)}>{d}</li>
+          <Link key={`${index}`} to={`/${year}/${idToIndex(d)}`}>
+            <li className={getClasses(Number(d), day)}>{idToIndex(d)}</li>
           </Link>
         ))}
       </ul>

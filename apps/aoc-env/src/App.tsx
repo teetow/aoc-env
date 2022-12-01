@@ -1,4 +1,3 @@
-import React from "react";
 import { HashRouter, Route, Routes, useParams } from "react-router-dom";
 import "./App.scss";
 import Blurb from "./ui/Blurb";

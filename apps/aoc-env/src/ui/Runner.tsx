@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import years from "../data/index";
-import { formatTime } from "../lib/utils";
+import { formatTime, pad2 } from "../lib/utils";
 
 import "./Runner.scss";
 
@@ -93,6 +93,7 @@ type Props = {
 
 const Runner: FunctionComponent<Props> = ({ year, day }) => {
   const [results, setResults] = useState<RunSet>({});
+  const dayData = years[year][`day${pad2(day)}`];
 
   const run = useCallback(
     (type: "test" | "solution", id: string, runner, data, expected?) => {
@@ -127,40 +128,42 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
   );
 
   useEffect(() => {
-    const yearData = years[year];
-    const dayData = yearData[day];
-
     dayData.parts.forEach((part, partIndex) => {
-      part.tests.forEach((test, testIndex) => {
-        const key = `Y${year}-D${day}-P${partIndex}-T${testIndex}`;
-        run("test", key, test.runner, test.data, test.result);
-      });
-      part.solutions.forEach((solution, solutionIndex) => {
-        const key = `Y${year}-D${day}-P${partIndex}-S${solutionIndex}`;
-        run("solution", key, solution.runner, solution.data, solution.result);
-      });
+      part.tests &&
+        part.tests.forEach((test, testIndex) => {
+          const key = `Y${year}-D${day}-P${partIndex}-T${testIndex}`;
+          run("test", key, test.runner, test.data, test.result);
+        });
+
+      part.solutions &&
+        part.solutions.forEach((solution, solutionIndex) => {
+          const key = `Y${year}-D${day}-P${partIndex}-S${solutionIndex}`;
+          run("solution", key, solution.runner, solution.data, solution.result);
+        });
     });
-  }, [run, year, day]);
+  }, [day, dayData.parts, run, year]);
 
   return (
     <>
       <div className="ae-runner">
         <div className="ae-runner__header">
-          <h1>Day {day}, {year}</h1>
+          <h1>
+            Day {day}, {year}
+          </h1>
           <iframe
             className="ae-runner__instr"
             title="Instructions"
             src={`https://adventofcode.com/${year}/day/${day}`}
           />
-          {years[year][day].desc && (
+          {dayData.desc && (
             <div className="ae-runner__desc">
-              <p>{years[year][day].desc}</p>
+              <p>{dayData.desc}</p>
             </div>
           )}
-          {years[year][day].comment && (
+          {dayData.comment && (
             <div className="ae-runner__comment">
               <h4>Comment</h4>
-              <p>{years[year][day].comment}</p>
+              <p>{dayData.comment}</p>
             </div>
           )}
           <div className="ae-runner__links">
@@ -181,7 +184,7 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
           </div>
         </div>
         <div className="ae-runner__parts">
-          {years[year][day].parts.map((part, i) => {
+          {dayData.parts.map((part, i) => {
             const resultSet = Object.entries(results);
             return (
               <div key={`Y${year}-D${day}-P${i}`} className="ae-runner__part">

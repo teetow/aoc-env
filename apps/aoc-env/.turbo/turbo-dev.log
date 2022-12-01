@@ -1,79 +1,149 @@
 
 > aoc-env@0.1.0 dev /home/teetow/apps/aoc-env/apps/aoc-env
-> react-scripts start
+> vite
 
-(node:13050) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
-(Use `node --trace-deprecation ...` to show where the warning was created)
-(node:13050) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
-Starting the development server...
 
-Compiled successfully!
+  VITE v3.2.4  ready in 400 ms
 
-You can now view aoc-env in the browser.
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
 
-  Local:            http://localhost:3000/aoc-env
-  On Your Network:  http://172.31.109.177:3000/aoc-env
+To preserve current behavior: $saturation * 1%
 
-Note that the development build is not optimized.
-To create a production build, use npm run build.
+More info: https://sass-lang.com/d/function-units
 
-LOG from ../../node_modules/.pnpm/sass-loader@12.6.0_sass@1.56.1+webpack@5.75.0/node_modules/sass-loader/dist/cjs.js sass-loader ../../node_modules/.pnpm/css-loader@6.7.2_webpack@5.75.0/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!../../node_modules/.pnpm/postcss-loader@6.2.1_upg3rk2kpasnbk27hkqapxaxfq/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!../../node_modules/.pnpm/resolve-url-loader@4.0.0/node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!../../node_modules/.pnpm/sass-loader@12.6.0_sass@1.56.1+webpack@5.75.0/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/Global.scss
-<w> Deprecation $saturation: Passing a number without unit % (0) is deprecated.
-<w> 
-<w> To preserve current behavior: $saturation * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 5:16  @use
-<w> src/Global.scss 2:1          root stylesheet
-<w> 
-<w> Deprecation $lightness: Passing a number without unit % (65) is deprecated.
-<w> 
-<w> To preserve current behavior: $lightness * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 5:16  @use
-<w> src/Global.scss 2:1          root stylesheet
-<w> 
-<w> Deprecation $saturation: Passing a number without unit % (0) is deprecated.
-<w> 
-<w> To preserve current behavior: $saturation * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 6:16  @use
-<w> src/Global.scss 2:1          root stylesheet
-<w> 
-<w> Deprecation $lightness: Passing a number without unit % (25) is deprecated.
-<w> 
-<w> To preserve current behavior: $lightness * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 6:16  @use
-<w> src/Global.scss 2:1          root stylesheet
-<w>
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/Global.scss 2:1          root stylesheet
 
-LOG from ../../node_modules/.pnpm/sass-loader@12.6.0_sass@1.56.1+webpack@5.75.0/node_modules/sass-loader/dist/cjs.js sass-loader ../../node_modules/.pnpm/css-loader@6.7.2_webpack@5.75.0/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!../../node_modules/.pnpm/postcss-loader@6.2.1_upg3rk2kpasnbk27hkqapxaxfq/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!../../node_modules/.pnpm/resolve-url-loader@4.0.0/node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!../../node_modules/.pnpm/sass-loader@12.6.0_sass@1.56.1+webpack@5.75.0/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/ui/Runner.scss
-<w> Deprecation $saturation: Passing a number without unit % (0) is deprecated.
-<w> 
-<w> To preserve current behavior: $saturation * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 5:16  @use
-<w> src/ui/Runner.scss 1:1       root stylesheet
-<w> 
-<w> Deprecation $lightness: Passing a number without unit % (65) is deprecated.
-<w> 
-<w> To preserve current behavior: $lightness * 1%
-<w> 
-<w> More info: https://sass-lang.com/d/function-units
-<w> 
-<w> src/style/_tokens.scss 5:16  @use
-<w> src/ui/Runner.scss 1:1       root stylesheet
-<w> 
-<w> Deprecation $saturation: Passing a number without unit % (0) is deprecated.
-<w> 
-<w> To preserve current behavior: $saturation
+DEPRECATION WARNING: $lightness: Passing a number without unit % (65) is deprecated.
+
+To preserve current behavior: $lightness * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/Global.scss 2:1          root stylesheet
+
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
+
+To preserve current behavior: $saturation * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+6 │ $color-gray25: hsla(0, 0, 25, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 6:16  @use
+    src/Global.scss 2:1          root stylesheet
+
+DEPRECATION WARNING: $lightness: Passing a number without unit % (25) is deprecated.
+
+To preserve current behavior: $lightness * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+6 │ $color-gray25: hsla(0, 0, 25, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 6:16  @use
+    src/Global.scss 2:1          root stylesheet
+
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
+
+To preserve current behavior: $saturation * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/ui/Runner.scss 1:1       root stylesheet
+
+DEPRECATION WARNING: $lightness: Passing a number without unit % (65) is deprecated.
+
+To preserve current behavior: $lightness * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/ui/Runner.scss 1:1       root stylesheet
+
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
+
+To preserve current behavior: $saturation * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/ui/Picker.scss 2:1       root stylesheet
+
+DEPRECATION WARNING: $lightness: Passing a number without unit % (65) is deprecated.
+
+To preserve current behavior: $lightness * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+5 │ $color-gray65: hsla(0, 0, 65, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 5:16  @use
+    src/ui/Picker.scss 2:1       root stylesheet
+
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
+
+To preserve current behavior: $saturation * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+6 │ $color-gray25: hsla(0, 0, 25, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 6:16  @use
+    src/ui/Runner.scss 1:1       root stylesheet
+
+DEPRECATION WARNING: $lightness: Passing a number without unit % (25) is deprecated.
+
+To preserve current behavior: $lightness * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+6 │ $color-gray25: hsla(0, 0, 25, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  ╵
+    src/style/_tokens.scss 6:16  @use
+    src/ui/Runner.scss 1:1       root stylesheet
+
+DEPRECATION WARNING: $saturation: Passing a number without unit % (0) is deprecated.
+
+To preserve current behavior: $saturation * 1%
+
+More info: https://sass-lang.com/d/function-units
+
+  ╷
+6 │ $color-gray25: hsla(0, 0, 25, 1);
+  │                ^^^^^^^^^^^^^^^^^
+  �

@@ -1,21 +1,15 @@
 
 > aoc-env@0.1.0 build /home/teetow/apps/aoc-env/apps/aoc-env
-> react-scripts build
+> tsc && vite build
 
-Creating an optimized production build...
-Compiled successfully.
-
-File sizes after gzip:
-
-  95.29 kB  build/static/js/main.a469fdbb.js
-  1.08 kB   build/static/css/main.384c1b59.css
-
-The project was built assuming it is hosted at /aoc-env/.
-You can control this with the homepage field in your package.json.
-
-The build folder is ready to be deployed.
-
-Find out more about deployment here:
-
-  https://cra.link/deployment
-
+src/data/2022/day01.ts(1,18): error TS2307: Cannot find module 'aocdata/data/2022/01/day01.txt' or its corresponding type declarations.
+src/data/index.ts(3,8): error TS1192: Module '"/home/teetow/apps/aoc-env/apps/aoc-env/src/data/2022/index"' has no default export.
+src/ui/Debugger.tsx(13,34): error TS7006: Parameter 'line' implicitly has an 'any' type.
+src/ui/Runner.tsx(31,6): error TS2322: Type '{ children: Element; id: string; expected: any; isSuccess: boolean; isFail: boolean; }' is not assignable to type 'IntrinsicAttributes & BoxProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & BoxProps'.
+src/ui/Runner.tsx(98,45): error TS7006: Parameter 'runner' implicitly has an 'any' type.
+src/ui/Runner.tsx(98,53): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/ui/Runner.tsx(98,59): error TS7006: Parameter 'expected' implicitly has an 'any' type.
+src/ui/Runner.tsx(224,26): error TS2322: Type '{ children: Element; key: string; id: string; expected: string | undefined; runTime: number; }' is not assignable to type 'IntrinsicAttributes & BoxProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & BoxProps'.
+ ELIFECYCLE  Command failed with exit code 2.

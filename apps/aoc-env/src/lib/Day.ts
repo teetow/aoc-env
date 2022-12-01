@@ -1,6 +1,6 @@
 type Run<K, T> = {
-  data: K;
-  runner: (inData: K) => T;
+  data?: K;
+  runner?: (inData: K) => T;
   result?: T;
 };
 
@@ -13,6 +13,7 @@ export type Part<K, T> = {
 
 export type Day<K, T> = {
   parts: Part<K, T>[];
+  dataConv?: (data: K) => T;
   desc?: string;
   comment?: string;
 };

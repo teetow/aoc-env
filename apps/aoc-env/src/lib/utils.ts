@@ -1,3 +1,5 @@
+export const pad2 = (n: number) => n.toString().padStart(2, "0");
+
 export const range = (n: number, start: number = 0) => [
   ...Array.from(Array(n).keys()).map((k) => k + start),
 ];
