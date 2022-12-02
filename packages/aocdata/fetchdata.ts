@@ -24,16 +24,16 @@ export const fetchData = async (year: number, day: number) => {
 export const createDataFile = (year: number, day: number) => {
   const pad = (n: number | string) => n.toString().padStart(2, "0");
 
-  const path = resolve(`data/${year}/${pad(day)}`);
+  const path = resolve(`data/${year}`);
   const fname = `${path}/day${pad(day)}.ts`;
 
   if (!fs.existsSync(fname)) {
     fs.mkdirSync(path, { recursive: true });
     fetchData(year, day).then((data) => {
-      fs.writeFileSync(fname, `const data = \`${data}\`;\nexport default data;\n`, { flag: "wx" });
+      fs.writeFileSync(fname, `const data = \`${data.trim()}\`;\nexport default data;\n`, { flag: "wx" });
     });
   } else {
-    console.log(`${fname} exists. skipping fetch...`);
+    console.log(`${day} exists. skipping fetch...`);
   }
 };
 

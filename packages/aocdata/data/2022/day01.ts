@@ -2250,6 +2250,5 @@ const data = `4601
 6611
 6489
 3794
-6089
-`;
+6089`;
 export default data;

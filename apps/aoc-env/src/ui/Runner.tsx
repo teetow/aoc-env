@@ -12,7 +12,10 @@ import { formatTime, pad2 } from "../lib/utils";
 
 import "./Runner.scss";
 
-const execRunner = async (runner: Function, data: unknown) => {
+const execRunner = async (
+  runner: (data: string | number) => number,
+  data: string | number
+) => {
   return runner(data);
 };
 
@@ -21,9 +24,9 @@ const TestBox = ({
   result,
   expected,
 }: {
-  id: string;
-  result: any;
-  expected: any;
+  id?: string;
+  result?: number;
+  expected?: number;
 }) => {
   const isSuccess = result === expected;
 
@@ -46,14 +49,14 @@ const TestBox = ({
 };
 
 type BoxProps = {
-  id: string;
+  id?: string;
   runTime?: number;
-  expected?: any;
+  expected?: number;
   isSuccess?: boolean;
   isFail?: boolean;
 };
 
-const Box: FunctionComponent<BoxProps> = ({
+const Box = ({
   id,
   runTime,
   children,
@@ -78,8 +81,8 @@ const Box: FunctionComponent<BoxProps> = ({
 type RunResult = {
   type: "test" | "solution";
   state: "running" | "complete";
-  result?: string;
-  expected?: string;
+  result?: number;
+  expected?: number;
   startTime: number;
   endTime: number;
 };
@@ -96,7 +99,13 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
   const dayData = years[year][`day${pad2(day)}`];
 
   const run = useCallback(
-    (type: "test" | "solution", id: string, runner, data, expected?) => {
+    (
+      type: "test" | "solution",
+      id: string,
+      data: string,
+      runner?: (data: any) => number,
+      expected?: any
+    ) => {
       setResults((prev) => ({
         ...prev,
         ...{
@@ -108,21 +117,22 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
           },
         },
       }));
-
-      execRunner(runner, data).then((result) => {
-        setResults((prev) => ({
-          ...prev,
-          ...{
-            [`${id}`]: {
-              ...prev[`${id}`],
-              endTime: Date.now(),
-              result,
-              expected,
-              state: "complete",
+      if (runner) {
+        execRunner(runner, data).then((result) => {
+          setResults((prev) => ({
+            ...prev,
+            ...{
+              [`${id}`]: {
+                ...prev[`${id}`],
+                endTime: Date.now(),
+                result,
+                expected,
+                state: "complete",
+              },
             },
-          },
-        }));
-      });
+          }));
+        });
+      }
     },
     []
   );
@@ -132,13 +142,13 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
       part.tests &&
         part.tests.forEach((test, testIndex) => {
           const key = `Y${year}-D${day}-P${partIndex}-T${testIndex}`;
-          run("test", key, test.runner, test.data, test.result);
+          run("test", key, test.data, test.runner, test.result);
         });
 
       part.solutions &&
         part.solutions.forEach((solution, solutionIndex) => {
           const key = `Y${year}-D${day}-P${partIndex}-S${solutionIndex}`;
-          run("solution", key, solution.runner, solution.data, solution.result);
+          run("solution", key, solution.data, solution.runner, solution.result);
         });
     });
   }, [day, dayData.parts, run, year]);
