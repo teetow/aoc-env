@@ -6,7 +6,8 @@ B X
 C Z`;
 
 type Shape = "rock" | "paper" | "scissors";
-const ShapeScores: Record<Shape, number> = {
+
+const ShapeScores = {
   rock: 1,
   paper: 2,
   scissors: 3,
@@ -18,36 +19,30 @@ const MoveSolver: { [key in Shape]: { [key in Shape]?: boolean } } = {
   scissors: { rock: false, paper: true },
 };
 
-const theirShape: Record<string, Shape> = {
+const TheirShapes: Record<string, Shape> = {
   A: "rock",
   B: "paper",
   C: "scissors",
 };
 
-const myShapes: Record<string, Shape> = {
+const MyShapes: Record<string, Shape> = {
   X: "rock",
   Y: "paper",
   Z: "scissors",
 };
 
-const isWin = (mine: Shape, theirs: Shape) => {
-  return MoveSolver[mine][theirs];
-};
-
-const matchResult = (mine: Shape, theirs: Shape) =>
-  mine !== theirs ? Number(isWin(mine, theirs)) * 6 : 3;
-
 const part1 = (data: string) => {
   const rounds = data.split("\n");
 
-  return rounds.reduce((score, round, index) => {
+  return rounds.reduce((score, round) => {
     const [theirs, mine] = round.split(" ");
-    const myMove = myShapes[mine];
-    const theirMove = theirShape[theirs];
+    const myMove = MyShapes[mine];
+    const theirMove = TheirShapes[theirs];
 
-    const roundScore = matchResult(myMove, theirMove) + ShapeScores[myMove];
+    const roundScore =
+    myMove !== theirMove ? Number(MoveSolver[myMove][theirMove]) * 6 : 3;
 
-    return score + roundScore;
+    return score + roundScore + ShapeScores[myMove];
   }, 0);
 };
 
@@ -58,7 +53,7 @@ const part2 = (data: string) => {
   const rounds = data.split("\n");
   return rounds.reduce((score, round) => {
     const [theirs, outcome] = round.split(" ");
-    const theirMove = theirShape[theirs];
+    const theirMove = TheirShapes[theirs];
 
     if (outcome === "Y") {
       // force a draw

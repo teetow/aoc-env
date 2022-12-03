@@ -1,3 +1,5 @@
+import { test } from "./test";
+
 export const pad2 = (n: number) => n.toString().padStart(2, "0");
 
 export const range = (n: number, start: number = 0) => [
@@ -56,6 +58,8 @@ export const average = (nums: number[]) => {
 export const factorial = (number: number) =>
   range(number, 1).reduce((acc, val) => acc + val, 0);
 
+export const sum = (numbers: number[]) => numbers.reduce((a, v) => a + v);
+
 export const sub = (src: number[], ...subtractions: number[][]) =>
   subtractions.reduce((acc, val) => {
     return acc.filter((x) => !val.includes(x));
@@ -74,6 +78,28 @@ export const intersect = (...intersections: number[][]) =>
 
 export const merge = (...arrays: number[][]) =>
   arrays.reduce((acc, arr) => [...acc, ...sub(arr, acc)], [] as number[]);
+
+export const splitArray = (array: any[], pos: number) => [
+  array.slice(0, pos),
+  array.slice(pos),
+];
+
+const isString = (thing: string | unknown): thing is string =>
+  typeof thing === "string";
+
+export function split(list: Array<unknown>, pos: number): unknown[][];
+export function split(list: string, pos: number): string[];
+export function split(list: any, pos: number) {
+  if (isString(list)) {
+    return splitArray(list.split(""), pos).map((s) => s.join(""));
+  }
+  return splitArray(list, pos);
+}
+
+test("ABCDEF splits into ABC, DEF", split("ABCDEF".split(""), 2), [
+  "ABC",
+  "DEF",
+]);
 
 export const deepCopy = (obj: any) => JSON.parse(JSON.stringify(obj));
 

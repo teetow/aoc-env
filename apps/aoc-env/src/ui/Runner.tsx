@@ -5,6 +5,7 @@ import {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import years from "../data/index";
@@ -96,6 +97,7 @@ type Props = {
 
 const Runner: FunctionComponent<Props> = ({ year, day }) => {
   const [results, setResults] = useState<RunSet>({});
+  const testStatii = useRef<Record<string, "running" | "complete">>({});
   const dayData = years[year][`day${pad2(day)}`];
 
   const run = useCallback(
@@ -145,6 +147,36 @@ const Runner: FunctionComponent<Props> = ({ year, day }) => {
           run("test", key, test.data, test.runner, test.result);
         });
 
+      // const testResults = Object.entries(results).filter(([id, rs]) =>
+      //   id.includes("-T")
+      // );
+
+      // // break on failing tests
+      // if (
+      //   testResults.length > 0 &&
+      //   testResults.filter(([id, rs]) => rs !== undefined).length !==
+      //     testResults.length
+      // ) {
+      //   return;
+      // }
+    });
+  }, [day, dayData.parts, run, year]);
+
+  useEffect(() => {
+    Object.entries(results).forEach(([id, rs]) => {
+      testStatii.current[id] = rs.state;
+    });
+  }, [results]);
+
+  useEffect(() => {
+    if (
+      !Object.values(testStatii.current).every((state) => state === "complete")
+    ) {
+      console.log("waiting for tests");
+      return;
+    }
+
+    dayData.parts.forEach((part, partIndex) => {
       part.solutions &&
         part.solutions.forEach((solution, solutionIndex) => {
           const key = `Y${year}-D${day}-P${partIndex}-S${solutionIndex}`;
