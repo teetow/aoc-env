@@ -1,7 +1,7 @@
 import data from "aocdata/data/2022/day03";
 import { Day } from "../../lib/Day";
 import { test } from "../../lib/test";
-import { split, sum } from "../../lib/utils";
+import { split } from "../../lib/utils";
 
 const testData = `vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL

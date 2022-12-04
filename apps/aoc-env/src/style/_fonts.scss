@@ -28,5 +28,5 @@
 }
 
 @mixin body-sm {
-  font-size: #{(12/16)}rem;
+  font-size: #{calc(12 / 16)}rem;
 }

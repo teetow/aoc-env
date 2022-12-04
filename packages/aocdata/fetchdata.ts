@@ -28,6 +28,7 @@ export const createDataFile = (year: number, day: number) => {
   const fname = `${path}/day${pad(day)}.ts`;
 
   if (!fs.existsSync(fname)) {
+    console.log(`${day}. fetching...`);
     fs.mkdirSync(path, { recursive: true });
     fetchData(year, day).then((data) => {
       fs.writeFileSync(fname, `const data = \`${data.trim()}\`;\nexport default data;\n`, { flag: "wx" });
