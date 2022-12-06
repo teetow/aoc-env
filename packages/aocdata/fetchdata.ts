@@ -31,7 +31,7 @@ export const createDataFile = (year: number, day: number) => {
     console.log(`${day}. fetching...`);
     fs.mkdirSync(path, { recursive: true });
     fetchData(year, day).then((data) => {
-      fs.writeFileSync(fname, `const data = \`${data.trim()}\`;\nexport default data;\n`, { flag: "wx" });
+      fs.writeFileSync(fname, `const data = \`${data}\`;\nexport default data;\n`, { flag: "wx" });
     });
   } else {
     console.log(`${day} exists. skipping fetch...`);

@@ -1,0 +1,87 @@
+
+> aoc-env@0.1.0 test /home/teetow/apps/aoc-env/apps/aoc-env
+> vitest
+
+
+ DEV  v0.25.4 /home/teetow/apps/aoc-env/apps/aoc-env
+
+ ❯ src/lib/linereader.test.ts  (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/linereader.test.ts [ src/lib/linereader.test.ts ]
+Error: [vite-node] Failed to load ./linereader
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:58:20
+   Duration  1.26s (transform 468ms, setup 0ms, collect 0ms, tests 0ms)
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 2 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: [vite-node] Failed to load ./linereader
+ ❯ VitestRunner.directRequest ../../node_modules/.pnpm/vitest@0.25.4_sass@1.56.1/node_modules/vitest/dist/chunk-vite-node-source-map.61c5ea66.js:222:13
+
+
+
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: [vite-node] Failed to load ./linereader
+ ❯ VitestRunner.directRequest ../../node_modules/.pnpm/vitest@0.25.4_sass@1.56.1/node_modules/vitest/dist/chunk-vite-node-source-map.61c5ea66.js:222:13
+
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  Tests failed. Watching for file changes...
+       press h to show help, press q to quit
+c
+ RERUN  src/lib/linereader.test.ts x1
+
+ ✓ src/lib/linereader.test.ts  (13 tests) 10ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  14:59:26
+   Duration  38ms
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+       rerun x1
+[2K[1A[2K[Gc
+ RERUN  src/lib/linereader.ts x2
+
+ ✓ src/lib/linereader.test.ts  (13 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  15:35:16
+   Duration  23ms
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+       rerun x2
+[2K[1A[2K[Gc
+ RERUN  src/lib/linereader.ts x3
+
+ ✓ src/lib/linereader.test.ts  (13 tests) 10ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  15:35:21
+   Duration  28ms
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+       rerun x3
+[2K[1A[2K[G
