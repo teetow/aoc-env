@@ -4,8 +4,6 @@ import { colorString, deepCopy, initArray, range } from "../../lib/utils";
 import data from "./input/day11";
 import testData from "./input/day11test";
 
-console.clear();
-
 type Map = number[][];
 
 type Data = {

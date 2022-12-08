@@ -1,5 +1,3 @@
-import { test } from "./test";
-
 export const pad2 = (n: number) => n.toString().padStart(2, "0");
 
 export const range = (n: number, start: number = 0) => [
@@ -58,7 +56,7 @@ export const average = (nums: number[]) => {
 export const factorial = (number: number) =>
   range(number, 1).reduce((acc, val) => acc + val, 0);
 
-export const sum = (numbers: number[]) => numbers.reduce((a, v) => a + v);
+export const sum = (numbers: number[]) => numbers.reduce((a, v) => a + v, 0);
 
 export const sub = (src: number[], ...subtractions: number[][]) =>
   subtractions.reduce((acc, val) => {
@@ -95,11 +93,6 @@ export function split(list: any, pos: number) {
   }
   return splitArray(list, pos);
 }
-
-test("ABCDEF splits into ABC, DEF", split("ABCDEF".split(""), 2), [
-  "ABC",
-  "DEF",
-]);
 
 export const deepCopy = (obj: any) => JSON.parse(JSON.stringify(obj));
 

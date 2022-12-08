@@ -17,7 +17,6 @@ const Debugger = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleLogMsg = appendLog;
-    console.log("registering");
   }, [appendLog]);
 
   return <code className="ae-debugger">{msg}</code>;

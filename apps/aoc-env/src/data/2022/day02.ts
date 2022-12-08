@@ -79,7 +79,6 @@ const part2 = (data: string) => {
       return score + s;
     }
 
-    console.log("ruh roh.");
     return score;
   }, 0);
 };
