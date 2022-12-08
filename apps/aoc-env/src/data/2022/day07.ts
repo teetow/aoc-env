@@ -1,23 +1,7 @@
 import data from "aocdata/data/2022/day07";
+
 import { Linereader } from "../../lib/linereader";
 import { sum } from "../../lib/utils";
-
-/*
-- / (dir)
-  - a (dir)
-    - e (dir)
-      - i (file, size=584)
-    - f (file, size=29116)
-    - g (file, size=2557)
-    - h.lst (file, size=62596)
-  - b.txt (file, size=14848514)
-  - c.dat (file, size=8504156)
-  - d (dir)
-    - j (file, size=4060174)
-    - d.log (file, size=8033020)
-    - d.ext (file, size=5626152)
-    - k (file, size=7214296)
-*/
 
 const testData = `$ cd /
 $ ls
@@ -102,7 +86,7 @@ class Dir {
   }
 }
 
-const part1 = (data: string) => {
+const parseDir = (data: string) => {
   let path = [];
   const root = new Dir("/");
 
@@ -131,6 +115,7 @@ const part1 = (data: string) => {
 
         entries.forEach((entry) => {
           const [arg1, arg2] = entry.split(" ");
+
           if (arg1.startsWith("dir")) {
             // is a dir
             dir.dirs.push(new Dir(arg2));
@@ -142,6 +127,13 @@ const part1 = (data: string) => {
       }
     }
   }
+
+  return root;
+};
+
+const part1 = (data: string) => {
+  const root = parseDir(data);
+
   let allDirs: { name: string; size: number }[] = [];
 
   root.recurse((dir) => {
@@ -155,7 +147,19 @@ const part1 = (data: string) => {
 };
 
 const part2 = (data: string) => {
-  return 0;
+  const root = parseDir(data);
+  const freeSpace = 70 * 1000 * 1000 - root.size;
+  const target = 30 * 1000 * 1000 - freeSpace;
+
+  let allDirs: { name: string; size: number }[] = [];
+  root.recurse((dir) => {
+    if (dir.size > target) {
+      allDirs.push({ name: dir.name, size: dir.size });
+    }
+  });
+  allDirs.sort((a, b) => a.size - b.size);
+
+  return allDirs[0].size;
 };
 
 const day = {
@@ -165,8 +169,8 @@ const day = {
       solutions: [{ data: data, runner: part1 }],
     },
     {
-      // tests: [{ data: testData, runner: part2, result: 19 }],
-      // solutions: [{ data: data, runner: part2 }],
+      tests: [{ data: testData, runner: part2, result: 24933642 }],
+      solutions: [{ data: data, runner: part2 }],
     },
   ],
 };
