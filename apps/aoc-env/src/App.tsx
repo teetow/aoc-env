@@ -32,7 +32,7 @@ const getDate = (year: number, day: number) => {
 const AppMain = () => {
   let params = useParams();
   const [year, day] = getDate(Number(params.year), Number(params.day));
-  console.log(day);
+
   return (
     <>
       <Picker year={year} day={day} />
