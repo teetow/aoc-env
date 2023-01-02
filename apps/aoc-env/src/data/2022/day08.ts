@@ -1,5 +1,4 @@
 import data from "aocdata/data/2022/day08";
-import { p } from "vitest/dist/index-81973d31";
 import { sum } from "../../lib/utils";
 
 const testData = `30373
